@@ -14,7 +14,7 @@ module NavigationHelpers
     case page_name
 
     when /^the home\s?page$/
-      '/'
+      '/movies'
     when /^the RottenPotatoes home page/
       '/movies'
     when /^the Create New Movie page/
@@ -23,6 +23,16 @@ module NavigationHelpers
       begin
         id = Movie.where(["title = ?", $1]).first.id
         '/movies/'+id.to_s+'/edit'
+      end
+    when /^the details page for "(.*)"/
+      begin
+        id = Movie.where(["title = ?", $1]).first.id
+        '/movies/'+id.to_s
+      end
+    when /^the Similar Movies page for "(.*)"/
+      begin
+        id = Movie.where(["title = ?", $1]).first.id
+        '/movies/'+id.to_s+'/similar'
       end
 
     # Add more mappings here.
